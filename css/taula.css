@@ -1,12 +1,14 @@
 table,th,td {
-	border: 2px solid black;
+	border: 2px solid #f7c600;
 	border-collapse: collapse;
 	margin: 50px auto;
 	padding: 5px;
-	background-color: #FFC300;
+	background-color: #111;
+	color: #f5f5f5;
 }
 th {
 	font-size: xx-large;
+	color: #f7c600;
 }
 td {
 	width: 22%;
@@ -27,9 +29,9 @@ img {
 }
 h1 {
 	text-align: center;
-	color: #581845;
+	color: #f7c600;
 }
 h2 {
 	text-align: center;
-	color: #581845;
+	color: #f7c600;
 }

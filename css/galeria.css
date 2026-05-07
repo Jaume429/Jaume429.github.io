@@ -1,15 +1,23 @@
 body {
 	display: flex;
 	flex-direction: column;
+	background: #050505;
+	color: #f5f5f5;
+	font-family: Arial, Helvetica, sans-serif;
 }
 header,
 footer {
-	background-color: #900C3F;
-	color: white;
+	background-color: #050505;
+	color: #f7c600;
 	text-align: center;
 	padding: 10px;
 	margin: auto;
 	width: 100%;
+	border-bottom: 4px solid #f7c600;
+}
+footer {
+	border-top: 4px solid #f7c600;
+	border-bottom: 0;
 }
 div.container {
 	width: 90%;
@@ -22,11 +30,13 @@ div.container {
 	justify-content: space-between;	
 }
 div.gallery {
-	border: 1px solid #ccc;
+	background: #111;
+	border: 1px solid #333;
 	width: 24%;
+	color: #ededed;
 }
 div.gallery:hover {
-	border: 2px solid yellowgreen;
+	border: 2px solid #f7c600;
 }
 div.gallery img {
 	width: 100%;
@@ -35,6 +45,7 @@ div.gallery img {
 div.desc {
 	padding: 15px;
 	text-align: center;
+	color: #f7c600;
 }
 @media screen and (max-width: 600px) {
 	div.gallery {
