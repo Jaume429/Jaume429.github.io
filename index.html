@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera web</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+
+</head>
+<body id="top">
+    <canvas class="starfield" aria-hidden="true"></canvas>
+
+    <header class="site-header">
+        <nav class="main-nav">
+            <a class="brand" href="#top" aria-label="Anar a l'inici de Yamaha R1">
+                <span class="brand-mark">
+                    <img src="img/r1.jpeg" alt="Yamaha R1 Logo">
+                </span>
+                <span class="brand-copy">
+                    <span class="brand-kicker">Superbike Engineering</span>
+                    <span class="brand-title">Yamaha R1</span>
+                </span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#prestacions">Prestacions</a></li>
+                <li><a href="#tecnologia">Tecnologia</a></li>
+                <li><a href="#disseny">Disseny</a></li>
+            </ul>
+
+            <a class="nav-cta" href="#r1">Veure model</a>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="hero-eyebrow">Race-bred superbike</p>
+                <h1>Yamaha R1</h1>
+                <p class="hero-lead">Una superbike creada para dominar rectas, frenar tarde y dejar una impresión seria desde el primer vistazo.</p>
+
+                <div class="hero-actions">
+                    <a class="hero-primary" href="#r1">Explorar la R1</a>
+                    <a class="hero-secondary" href="#prestacions">Ver prestaciones</a>
+                </div>
+
+                <div class="hero-stats" aria-label="Dades principals de la Yamaha R1">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">200 CV</span>
+                        <span class="hero-stat-label">Potència màxima</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">998 cc</span>
+                        <span class="hero-stat-label">Motor crossplane</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">299 km/h</span>
+                        <span class="hero-stat-label">Velocitat punta</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <img src="img/2012-R1-3.webp" alt="Yamaha R1 en vista lateral">
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main class="page-content">
+        <section class="content-block reveal" id="prestacions">
+            <h2>Prestacions</h2>
+            <p>La Yamaha YZF-R1 ofereix una potència extrema gràcies al seu motor crossplane de 998cc, amb una acceleració contundent i una resposta immediata. Dissenyada per a circuit, però perfectament adaptable a carretera.</p>
+        </section>
+
+        <section class="content-block reveal" id="tecnologia">
+            <h2>Tecnologia</h2>
+            <p>Incorpora sistemes electrònics derivats de MotoGP com el control de tracció, quickshifter, launch control i diferents modes de conducció. Tot orientat a millorar el control i el rendiment en qualsevol situació.</p>
+        </section>
+
+        <section class="content-block reveal" id="disseny">
+            <h2>Disseny</h2>
+            <p>Un estil agressiu i aerodinàmic que reflecteix el seu ADN esportiu. Cada detall està pensat per optimitzar el flux d’aire i reforçar la seva presència a nivell visual.</p>
+        </section>
+
+        <section class="content-block reveal">
+            <img id="r1" src="img/2012-R1-3.webp" alt="Yamaha R1 disseny esportiu">
+        </section>
+
+        <section class="content-block reveal">
+            <table>
+                <tr><th>Especificació</th><th>Valor</th></tr>
+                <tr><td>Motor</td><td>998 cc, 4 cilindres en línia</td></tr>
+                <tr><td>Potència màxima</td><td>200 CV a 13.500 rpm</td></tr>
+                <tr><td>Par motor</td><td>113,5 Nm a 11.500 rpm</td></tr>
+                <tr><td>Pes en sec</td><td>201 kg</td></tr>
+                <tr><td>Velocitat màxima</td><td>299 km/h</td></tr>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        const canvas = document.querySelector('.starfield');
+        const context = canvas.getContext('2d');
+        const stars = [];
+        const starCount = 180;
+        const motionSpeed = 0.015;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let width = 0;
+        let height = 0;
+        let animationId = null;
+        let lastTime = 0;
+
+        function randomBetween(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function createStar(initial = false) {
+            const depth = Math.random();
+
+            return {
+                x: Math.random() * width,
+                y: initial ? Math.random() * height : height + randomBetween(20, 160),
+                radius: randomBetween(0.5, 1.9) + depth * 0.8,
+                speed: 0.08 + depth * 0.16,
+                drift: randomBetween(-0.008, 0.008),
+                alpha: randomBetween(0.25, 0.9),
+                twinkleSpeed: randomBetween(0.0015, 0.006),
+                twinkleOffset: Math.random() * Math.PI * 2,
+                glow: 6 + depth * 18
+            };
+        }
+
+        function resizeCanvas() {
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            canvas.width = Math.floor(width * ratio);
+            canvas.height = Math.floor(height * ratio);
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+            stars.length = 0;
+            for (let i = 0; i < starCount; i += 1) {
+                stars.push(createStar(true));
+            }
+        }
+
+        function drawNebula() {
+            const gradient = context.createRadialGradient(
+                width * 0.18,
+                height * 0.1,
+                0,
+                width * 0.18,
+                height * 0.1,
+                width * 0.75
+            );
+
+            gradient.addColorStop(0, 'rgba(120, 180, 255, 0.16)');
+            gradient.addColorStop(0.35, 'rgba(73, 129, 201, 0.07)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, width, height);
+        }
+
+        function render(time) {
+            const delta = Math.min((time - lastTime) / 16.67 || 1, 2);
+            lastTime = time;
+
+            context.clearRect(0, 0, width, height);
+            drawNebula();
+
+            for (const star of stars) {
+                if (!reduceMotion.matches) {
+                    star.y -= star.speed * motionSpeed * delta;
+                    star.x += star.drift * motionSpeed * delta;
+                }
+
+                if (star.y < -30 || star.x < -30 || star.x > width + 30) {
+                    Object.assign(star, createStar());
+                    star.x = Math.random() * width;
+                }
+
+                const flicker = 0.65 + Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.35;
+                const opacity = Math.max(0.12, star.alpha * flicker);
+
+                context.beginPath();
+                context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                context.shadowColor = `rgba(170, 210, 255, ${opacity * 0.45})`;
+                context.shadowBlur = star.glow;
+                context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                context.fill();
+            }
+
+            context.shadowBlur = 0;
+            animationId = window.requestAnimationFrame(render);
+        }
+
+        resizeCanvas();
+        lastTime = performance.now();
+        animationId = window.requestAnimationFrame(render);
+
+        const revealItems = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            }
+        }, {
+            threshold: 0.22,
+            rootMargin: '-6% 0px -6% 0px'
+        });
+
+        for (const item of revealItems) {
+            if (reduceMotion.matches) {
+                item.classList.add('is-visible');
+            } else {
+                revealObserver.observe(item);
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        reduceMotion.addEventListener('change', resizeCanvas);
+        window.addEventListener('beforeunload', () => {
+            if (animationId) {
+                window.cancelAnimationFrame(animationId);
+            }
+        });
+    </script>
+</body>
+</html>
