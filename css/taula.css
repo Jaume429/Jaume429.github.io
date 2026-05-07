@@ -1,5 +1,5 @@
 table,th,td {
-	border: 2px solid #f7c600;
+	border: 2px solid #55cfff;
 	border-collapse: collapse;
 	margin: 50px auto;
 	padding: 5px;
@@ -8,7 +8,7 @@ table,th,td {
 }
 th {
 	font-size: xx-large;
-	color: #f7c600;
+	color: #55cfff;
 }
 td {
 	width: 22%;
@@ -29,9 +29,9 @@ img {
 }
 h1 {
 	text-align: center;
-	color: #f7c600;
+	color: #55cfff;
 }
 h2 {
 	text-align: center;
-	color: #f7c600;
+	color: #55cfff;
 }
